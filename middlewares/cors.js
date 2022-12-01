@@ -1,8 +1,8 @@
 const allowedCors = [
   'https://movie.andrei5s.nomoredomains.club',
   'http://movie.andrei5s.nomoredomains.club',
-  // 'https://api.movie.andrei5s.nomoredomains.club',
-  // 'http://api.movie.andrei5s.nomoredomains.club',
+  'https://api.movie.andrei5s.nomoredomains.club',
+  'http://api.movie.andrei5s.nomoredomains.club',
   'http://localhost:3000',
   'http://localhost:3001',
 ];
