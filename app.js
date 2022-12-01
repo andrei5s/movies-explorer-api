@@ -13,7 +13,6 @@ const { ERROR_SERVER } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found-err');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-// const corsReqest = require('./middlewares/cors');
 
 const app = express();
 app.use(cors());
