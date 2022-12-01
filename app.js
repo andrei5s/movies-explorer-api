@@ -13,7 +13,7 @@ const { ERROR_SERVER } = require('./utils/constants');
 const NotFoundError = require('./errors/not-found-err');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const corsReqest = require('./middlewares/cors');
+// const corsReqest = require('./middlewares/cors');
 
 const app = express();
 app.use(cors());
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
 
-app.use(cors(corsReqest));
+// app.use(cors(corsReqest));
 
 app.get('/crash-test', () => {
   setTimeout(() => {
