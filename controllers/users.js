@@ -53,16 +53,6 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
-// eslint-disable-next-line consistent-return
-const getUser = async (req, res, next) => {
-  try {
-    const users = await User.find({});
-    res.send({ data: users });
-  } catch (err) {
-    next(err);
-  }
-};
-
 const getCurrentUser = (req, res, next) => {
   User.findById(req.user)
     .then((user) => {
@@ -71,10 +61,10 @@ const getCurrentUser = (req, res, next) => {
       }
       res.status(STATUS_OK).send(user);
     })
-  // eslint-disable-next-line consistent-return
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError) {
-        return next(new BadRequestError('Не корректный _id'));
+        next(new BadRequestError('Не корректный _id'));
+        return;
       }
       next(err);
     });
@@ -83,20 +73,20 @@ const getCurrentUser = (req, res, next) => {
 const updateProfile = (req, res, next) => {
   const { name, email } = req.body;
   User.findByIdAndUpdate(req.user, { name, email }, { new: true, runValidators: true })
-  // eslint-disable-next-line consistent-return
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
       res.status(STATUS_OK).send(user);
     })
-  // eslint-disable-next-line consistent-return
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError) {
-        return next(new BadRequestError('Не корректный _id'));
+        next(new BadRequestError('Не корректный _id'));
+        return;
       }
       if (err instanceof mongoose.Error.ValidationError) {
-        return next(new BadRequestError('Ошибка валидации данных'));
+        next(new BadRequestError('Ошибка валидации данных'));
+        return;
       }
       next(err);
     });
@@ -104,7 +94,6 @@ const updateProfile = (req, res, next) => {
 
 module.exports = {
   createUser,
-  getUser,
   updateProfile,
   login,
   getCurrentUser,

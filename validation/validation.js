@@ -5,7 +5,7 @@ const checkUser = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
   }),
 });
 
@@ -20,13 +20,6 @@ const checkProfile = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
-  }),
-});
-
-const checkUserById = celebrate({
-  params: Joi.object().keys({
-    id: Joi.string().required().hex().alphanum()
-      .length(24),
   }),
 });
 
@@ -64,7 +57,6 @@ module.exports = {
   checkUser,
   checkLogin,
   checkProfile,
-  checkUserById,
   checkCreateMovie,
   checkMovieId,
   checkDeletedMovie,

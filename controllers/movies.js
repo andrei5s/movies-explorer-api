@@ -6,8 +6,8 @@ const ForbiddenError = require('../errors/forbidden-err');
 const { STATUS_OK, STATUS_CREATED } = require('../utils/constants');
 
 module.exports.createMovie = (req, res, next) => {
-  const owner = req.params._id;
-  Movie.create({ ...req.body, owner })
+  const owner = req.user;
+  Movie.create({ owner, ...req.body })
     .then((user) => res.status(STATUS_CREATED).send({ data: user }))
     .catch((err) => {
       if (err.name.includes('ValidationError')) {
@@ -25,16 +25,16 @@ module.exports.getMovies = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params._id)
+  Movie.findById(req.params.movieId)
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError('Такого фильма нет!');
       }
-      if (JSON.stringify(movie.owner) !== JSON.stringify(req.user._id)) {
+      if (JSON.stringify(req.params.movieId) !== JSON.stringify(req.user._id)) {
         throw new ForbiddenError('Невозможно удалить данный фильм');
       }
       return movie.remove()
-        .then(() => res.status(STATUS_OK).send({ data: movie }));
+        .then(() => res.status(STATUS_OK).send({ movie }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {

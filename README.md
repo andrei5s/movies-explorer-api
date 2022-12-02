@@ -1,8 +1,9 @@
-### movies-explorer-api
+# movies-explorer-api
 
-##Разработал Андрей Суховьев
+## Разработал Андрей Суховьев
+
 Проект создан для сервиса поиска фильмов.
-Адрес домена сервера: http://api.movie.andrei5s.nomoredomains.club 
+Адрес домена сервера: <http://api.movie.andrei5s.nomoredomains.club>
 
 Проект реализован на Node с применением Express.
 
