@@ -16,7 +16,16 @@ const createUser = (req, res, next) => {
     password,
     name,
   } = req.body;
-  return bcrypt.hash(password, 10)
+  if (!email || !password) {
+    throw new BadRequestError('Нужны почта и пароль');
+  }
+  User.findOne({ email })
+    .then((user) => {
+      if (user) {
+        throw new ExistError('Такой пользователь уже существует!');
+      }
+      return bcrypt.hash(password, 10);
+    })
     .then((hash) => User.create({
       email,
       password: hash,

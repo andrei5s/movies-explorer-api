@@ -49,12 +49,10 @@ const movieSchema = new mongoose.Schema({
   nameRU: {
     type: String,
     required: true,
-    default: '',
   },
   nameEN: {
     type: String,
     required: true,
-    default: '',
   },
 }, {
   versionKey: false,
