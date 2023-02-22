@@ -7,7 +7,7 @@ const cors = require('cors');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
 
-const routes = require('./routes/index');
+const routes = require('./routes');
 const NotFoundError = require('./errors/not-found-err');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -26,7 +26,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-mongoose.connect('mongodb://localhost:27017/moviesdb');
+mongoose.connect('mongodb://localhost:27017/moviesdb1');
 
 // для собирания JSON-формата
 app.use(bodyParser.json());
