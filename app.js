@@ -26,7 +26,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-mongoose.connect('mongodb://localhost:27017/movies1db');
+mongoose.connect('mongodb://localhost:27017/movieseddb');
 
 // для собирания JSON-формата
 app.use(bodyParser.json());
