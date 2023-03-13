@@ -81,7 +81,8 @@ const getCurrentUser = (req, res, next) => {
 
 const updateProfile = (req, res, next) => {
   const { name, email } = req.body;
-  User.findByIdAndUpdate(req.user, { name, email }, { new: true, runValidators: true })
+  // User.findByIdAndUpdate(req.user, { name, email }, { new: true, runValidators: true })
+  User.findOneAndUpdate(req.user, { name, email }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователь не найден');
@@ -95,6 +96,10 @@ const updateProfile = (req, res, next) => {
       }
       if (err instanceof mongoose.Error.ValidationError) {
         next(new BadRequestError('Ошибка валидации данных'));
+        return;
+      }
+      if (err.code === 11000) {
+        next(new ExistError('Такой пользователь уже существует!'));
         return;
       }
       next(err);
